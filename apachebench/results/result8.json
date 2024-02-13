@@ -1,0 +1,10 @@
+{
+    "concurrency_level": 3,
+    "time_taken_for_tests": 263.599,
+    "complete_requests": 500000,
+    "failed_requests": 0,
+    "total_transferred": 424000000,
+    "html_transferred": 307500000,
+    "requests_per_second": 1896.82,
+    "transfer_rate": 1570.8
+}

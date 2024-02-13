@@ -1,0 +1,24 @@
+---
+- name : 로컬환경설정
+  hosts: localhost
+  gather_facts: no
+
+  tasks:
+    - name: 패키지 설치하기
+      yum:
+        name: "{{ item.name }}"
+        state: present
+      with_items:
+        - { name: git }
+        - { name: vim-enhanced }
+        - { name: curl }
+        - { name: wget }
+
+    - name: alias 설정
+      lineinfile:
+        path: /home/vagrant/.bashrc
+        line: "{{ item }}"
+      with_items:
+        - "alias ans='ansible'"
+        - "alias anp='ansible-playbook'"
+        - "alias vi='vim'"

@@ -1,0 +1,15 @@
+---
+- name: 도커스웜 클러스터 구성
+  hosts: workers
+  become: yes
+  gather_facts: yes
+
+  tasks:
+    - name: Docker init
+      community.docker.docker_swarm:
+        state: present
+      register: swarm_info
+
+    - name: Docker swarm init 정보 확인
+      debug:
+        var: swarm_info

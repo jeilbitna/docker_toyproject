@@ -1,0 +1,38 @@
+---
+- name: Initialize Docker Swarm on Manager Node
+  hosts: managers
+  become: false
+  tasks:
+    - name: Initialize Swarm on Manager Node
+      community.docker.docker_swarm:
+        state: present
+      register: swarm_init
+
+- name: Retrieve Swarm Join Tokens from Manager Node
+  hosts: managers
+  become: false
+  tasks:
+    - name: Get Worker Join Token
+      community.docker.docker_swarm_info:
+      register: swarm_info
+
+- name: Set Worker Join Token for Other Nodes
+  hosts: managers
+  become: false
+  tasks:
+    - name: Pass Worker Join Token to Other Workers
+      set_fact:
+        worker_join_token: "{{ swarm_info.swarm_facts.JoinTokens.Worker }}"
+
+- name: Join Worker Nodes to the Swarm Cluster
+  hosts: workers
+  become: false
+  vars:
+    worker_join_token: "{{ hostvars['manager1']['worker_join_token'] }}"
+  tasks:
+    - name: Join Swarm as a Worker
+      community.docker.docker_swarm:
+        state: join
+        join_token: "{{ worker_join_token }}"
+        remote_addrs: ["{{ hostvars['manager1']['ansible_host'] }}:2377"]
+
