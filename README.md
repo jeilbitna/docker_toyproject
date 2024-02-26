@@ -3,13 +3,23 @@
 
 **1. Clustering**
 - docker swarm
+  - pip 모듈에 docker 등록
+  - ansible playbook 방식으로 deploy
+  
 - ansible playbook
+  - ssh 연결
+  - host 등록
 
 
 **2. Deploy**
 - docker stack
-
-
+  1) Manager
+     - elasticsearch
+     - kibana
+  2) Worker
+     - metricbeat
+     - nginx
+     
 **3. Visualization**
 - elasticsearch
   - container 방식 사용
@@ -23,6 +33,8 @@
 - metricbeat
   - container 방식 사용
   - 발생한 traffic 감지 -> elasticsearch 로 전달
+ 
++ Container 개수 1/10/50 개 일 때 Traffic 30/50/100만 개 요청하여 비교하기
 
 **4. Apache Benchmark**
 - bare-metal 방식 사용
