@@ -3,9 +3,11 @@
 1. Clustering
 - docker swarm
 - ansible playbook
-  
+
+
 2. Deploy
 - docker stack
+
 
 3. Visualization
 - elasticsearch
